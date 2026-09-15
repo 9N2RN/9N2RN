@@ -1,0 +1,504 @@
+<!DOCTYPE html>
+<html lang="en" class="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>9N2 (Under Construction) | Rupesh Dev Nath - Ham Radio Station</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    colors: {
+                        radio: {
+                            base: '#0f172a',
+                            panel: '#1e293b',
+                            accent: '#06b6d4',
+                            amber: '#f59e0b',
+                            green: '#10b981'
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    <!-- FontAwesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Share+Tech+Mono&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        .font-lcd {
+            font-family: 'Share Tech Mono', monospace;
+        }
+        /* Custom scrollbar for logbook */
+        ::-webkit-scrollbar {
+            width: 8px;
+            height: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #0f172a;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #334155;
+            border-radius: 4px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #06b6d4;
+        }
+    </style>
+</head>
+<body class="bg-slate-950 text-slate-100 font-[Inter] min-h-screen flex flex-col justify-between antialiased">
+
+    <!-- Header / Navbar -->
+    <header class="border-b border-slate-800 bg-slate-900/80 backdrop-blur sticky top-0 z-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4 flex flex-col sm:flex-row justify-between items-center gap-4">
+            <div class="flex items-center space-x-3">
+                <div class="bg-cyan-500/10 p-2.5 rounded-lg border border-cyan-500/30 text-cyan-400">
+                    <i class="fa-solid fa-tower-cell text-2xl animate-pulse"></i>
+                </div>
+                <div>
+                    <h1 class="text-xl font-bold tracking-tight text-white flex items-center gap-2">
+                        RUPESH DEV NATH 
+                        <span class="text-xs bg-amber-500/20 text-amber-400 border border-amber-500/40 px-2 py-0.5 rounded-full font-mono">9N2 (Under Const.)</span>
+                    </h1>
+                    <p class="text-xs text-slate-400">Ham Radio Operator • Arjundhara-8, Jhapa, Nepal</p>
+                </div>
+            </div>
+
+            <!-- Quick Stats & UTC Clock -->
+            <div class="flex items-center space-x-4">
+                <div class="bg-slate-950 border border-slate-800 px-4 py-2 rounded-lg font-lcd text-center">
+                    <div class="text-[10px] text-slate-400 uppercase tracking-widest">Nepal Time (NPT)</div>
+                    <div id="npt-clock" class="text-cyan-400 text-lg font-bold">00:00:00 NPT</div>
+                </div>
+                <button id="toggle-admin-btn" onclick="toggleAdminModal()" class="bg-cyan-600 hover:bg-cyan-500 text-slate-950 font-semibold px-4 py-2 rounded-lg transition-all flex items-center gap-2 text-sm shadow-lg shadow-cyan-950/50">
+                    <i class="fa-solid fa-key"></i> <span id="admin-btn-text">Manage Logs</span>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 flex-1 w-full space-y-8">
+
+        <!-- Operator Profile Card -->
+        <section class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+            <!-- Main Info -->
+            <div class="lg:col-span-2 bg-slate-900/60 border border-slate-800 rounded-2xl p-6 relative overflow-hidden backdrop-blur">
+                <div class="absolute top-0 right-0 w-64 h-64 bg-cyan-500/5 rounded-full blur-3xl pointer-events-none"></div>
+                
+                <div class="flex flex-col md:flex-row gap-6 items-start">
+                    <div class="w-24 h-24 rounded-2xl bg-gradient-to-br from-cyan-500 to-blue-600 p-0.5 shadow-xl flex-shrink-0">
+                        <div class="w-full h-full bg-slate-900 rounded-[14px] flex items-center justify-center">
+                            <i class="fa-solid fa-radio text-4xl text-cyan-400"></i>
+                        </div>
+                    </div>
+                    
+                    <div class="space-y-3 flex-1">
+                        <div>
+                            <span class="text-xs font-semibold uppercase text-cyan-400 tracking-wider">Station Information</span>
+                            <h2 class="text-2xl font-bold text-white">Rupesh Dev Nath</h2>
+                            <p class="text-slate-400 text-sm">Amateur Radio Operator Station (Nepal)</p>
+                        </div>
+                        
+                        <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 text-sm">
+                            <div class="flex items-center gap-2 text-slate-300">
+                                <i class="fa-solid fa-location-dot text-rose-400 w-4"></i>
+                                <span>Arjundhara 8, Jhapa, Koshi, Nepal</span>
+                            </div>
+                            <div class="flex items-center gap-2 text-slate-300">
+                                <i class="fa-solid fa-microchip text-emerald-400 w-4"></i>
+                                <span>Status: <strong class="text-amber-400 font-mono">9N2 (Under Const.)</strong></span>
+                            </div>
+                            <div class="flex items-center gap-2 text-slate-300">
+                                <i class="fa-solid fa-envelope text-cyan-400 w-4"></i>
+                                <a href="mailto:ksmtamang94@gmail.com" class="hover:underline text-cyan-400">ksmtamang94@gmail.com</a>
+                            </div>
+                            <div class="flex items-center gap-2 text-slate-300">
+                                <i class="fa-solid fa-phone text-indigo-400 w-4"></i>
+                                <span>9852621432 / 9842712432</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Station Status Quick Console -->
+            <div class="bg-slate-900/60 border border-slate-800 rounded-2xl p-6 flex flex-col justify-between">
+                <div>
+                    <h3 class="text-xs font-semibold uppercase text-slate-400 tracking-wider mb-4 flex items-center justify-between">
+                        <span>Live Station Monitor</span>
+                        <span class="inline-flex items-center px-2 py-0.5 rounded text-xs font-medium bg-emerald-500/10 text-emerald-400 border border-emerald-500/20">
+                            <span class="w-1.5 h-1.5 rounded-full bg-emerald-400 mr-1.5 animate-ping"></span> Online
+                        </span>
+                    </h3>
+                    
+                    <div class="space-y-3 font-lcd">
+                        <div class="bg-slate-950 p-3 rounded-lg border border-slate-800 flex justify-between items-center">
+                            <span class="text-xs text-slate-400">TOTAL LOGGED QSOs</span>
+                            <span id="stat-total-qso" class="text-xl text-cyan-400 font-bold">0</span>
+                        </div>
+                        <div class="bg-slate-950 p-3 rounded-lg border border-slate-800 flex justify-between items-center">
+                            <span class="text-xs text-slate-400">COUNTRIES WORKED</span>
+                            <span id="stat-countries" class="text-xl text-emerald-400 font-bold">0</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="mt-4 pt-4 border-t border-slate-800/80 flex justify-between text-xs text-slate-400">
+                    <span>QTH: NL26</span>
+                    <span>Zone: CQ 22 / ITU 42</span>
+                </div>
+            </div>
+        </section>
+
+        <!-- QSO Logbook Section -->
+        <section class="bg-slate-900/60 border border-slate-800 rounded-2xl p-6 space-y-6">
+            <div class="flex flex-col md:flex-row md:items-center justify-between gap-4">
+                <div>
+                    <h2 class="text-xl font-bold text-white flex items-center gap-2">
+                        <i class="fa-solid fa-book-bookmark text-cyan-400"></i> Public Contact Log (QSO Logbook)
+                    </h2>
+                    <p class="text-xs text-slate-400">Explore recorded two-way radio communications</p>
+                </div>
+
+                <!-- Action Button for Admin -->
+                <div class="flex items-center gap-3">
+                    <button id="add-qso-btn" onclick="openAddQSOModal()" class="hidden bg-emerald-600 hover:bg-emerald-500 text-white font-semibold px-4 py-2 rounded-lg text-sm transition-all flex items-center gap-2 shadow-lg shadow-emerald-950/50">
+                        <i class="fa-solid fa-plus"></i> Add New QSO Entry
+                    </button>
+                </div>
+            </div>
+
+            <!-- Search and Filters -->
+            <div class="grid grid-cols-1 sm:grid-cols-3 gap-4 bg-slate-950 p-4 rounded-xl border border-slate-800">
+                <div class="relative">
+                    <i class="fa-solid fa-magnifying-glass absolute left-3 top-3.5 text-slate-500 text-xs"></i>
+                    <input type="text" id="search-callsign" oninput="renderQSOs()" placeholder="Search Call Sign..." class="w-full bg-slate-900 border border-slate-800 rounded-lg pl-9 pr-3 py-2 text-sm text-white focus:outline-none focus:border-cyan-500 transition-all">
+                </div>
+                <div>
+                    <select id="filter-band" onchange="renderQSOs()" class="w-full bg-slate-900 border border-slate-800 rounded-lg px-3 py-2 text-sm text-white focus:outline-none focus:border-cyan-500 transition-all">
+                        <option value="">All Bands/Frequencies</option>
+                        <option value="40m">40m (7 MHz)</option>
+                        <option value="20m">20m (14 MHz)</option>
+                        <option value="15m">15m (21 MHz)</option>
+                        <option value="10m">10m (28 MHz)</option>
+                        <option value="2m">2m (144 MHz)</option>
+                        <option value="70cm">70cm (430 MHz)</option>
+                    </select>
+                </div>
+                <div>
+                    <select id="filter-mode" onchange="renderQSOs()" class="w-full bg-slate-900 border border-slate-800 rounded-lg px-3 py-2 text-sm text-white focus:outline-none focus:border-cyan-500 transition-all">
+                        <option value="">All Operating Modes</option>
+                        <option value="SSB">SSB (Voice)</option>
+                        <option value="CW">CW (Morse)</option>
+                        <option value="FT8">FT8 (Digital)</option>
+                        <option value="FM">FM</option>
+                        <option value="AM">AM</option>
+                    </select>
+                </div>
+            </div>
+
+            <!-- Logbook Table -->
+            <div class="overflow-x-auto rounded-xl border border-slate-800">
+                <table class="w-full text-left border-collapse">
+                    <thead>
+                        <tr class="bg-slate-950 text-slate-400 text-xs uppercase tracking-wider font-mono border-b border-slate-800">
+                            <th class="p-3.5">Date / Time (NPT)</th>
+                            <th class="p-3.5">Call Sign</th>
+                            <th class="p-3.5">Band / Freq</th>
+                            <th class="p-3.5">Mode</th>
+                            <th class="p-3.5">RST (S/R)</th>
+                            <th class="p-3.5">Grid / QTH</th>
+                            <th class="p-3.5">Comments</th>
+                            <th id="th-actions" class="p-3.5 text-right hidden">Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody id="qso-table-body" class="divide-y divide-slate-800 text-sm font-mono text-slate-200">
+                        <!-- Dynamic QSO rows will be rendered here -->
+                    </tbody>
+                </table>
+                <div id="no-logs-msg" class="hidden text-center py-8 text-slate-500 text-sm">
+                    No QSO log entries found matching your query.
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Modal: Add / Edit QSO -->
+    <div id="qso-modal" class="fixed inset-0 bg-slate-950/80 backdrop-blur-sm z-50 flex items-center justify-center hidden p-4">
+        <div class="bg-slate-900 border border-slate-800 rounded-2xl w-full max-w-lg overflow-hidden shadow-2xl">
+            <div class="px-6 py-4 border-b border-slate-800 flex justify-between items-center bg-slate-950">
+                <h3 id="modal-title" class="text-lg font-bold text-white flex items-center gap-2">
+                    <i class="fa-solid fa-pen-to-square text-cyan-400"></i> Log QSO Entry
+                </h3>
+                <button onclick="closeQSOModal()" class="text-slate-400 hover:text-white">
+                    <i class="fa-solid fa-xmark text-lg"></i>
+                </button>
+            </div>
+            
+            <form id="qso-form" onsubmit="saveQSO(event)" class="p-6 space-y-4">
+                <input type="hidden" id="qso-id">
+                
+                <div class="grid grid-cols-2 gap-4">
+                    <div>
+                        <label class="block text-xs text-slate-400 uppercase mb-1">Date & Time (NPT)</label>
+                        <input type="datetime-local" id="qso-datetime" required class="w-full bg-slate-950 border border-slate-800 rounded-lg p-2.5 text-sm text-white focus:outline-none focus:border-cyan-500">
+                    </div>
+                    <div>
+                        <label class="block text-xs text-slate-400 uppercase mb-1">Station Call Sign</label>
+                        <input type="text" id="qso-callsign" required placeholder="e.g. VU2ABC" class="w-full bg-slate-950 border border-slate-800 rounded-lg p-2.5 text-sm text-white font-mono uppercase focus:outline-none focus:border-cyan-500">
+                    </div>
+                </div>
+
+                <div class="grid grid-cols-2 gap-4">
+                    <div>
+                        <label class="block text-xs text-slate-400 uppercase mb-1">Band / Frequency</label>
+                        <input type="text" id="qso-band" required placeholder="e.g. 20m / 14.205 MHz" class="w-full bg-slate-950 border border-slate-800 rounded-lg p-2.5 text-sm text-white focus:outline-none focus:border-cyan-500">
+                    </div>
+                    <div>
+                        <label class="block text-xs text-slate-400 uppercase mb-1">Mode</label>
+                        <select id="qso-mode" class="w-full bg-slate-950 border border-slate-800 rounded-lg p-2.5 text-sm text-white focus:outline-none focus:border-cyan-500">
+                            <option value="SSB">SSB</option>
+                            <option value="CW">CW</option>
+                            <option value="FT8">FT8</option>
+                            <option value="FM">FM</option>
+                            <option value="AM">AM</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="grid grid-cols-3 gap-3">
+                    <div>
+                        <label class="block text-xs text-slate-400 uppercase mb-1">RST Sent</label>
+                        <input type="text" id="qso-rst-sent" value="59" class="w-full bg-slate-950 border border-slate-800 rounded-lg p-2.5 text-sm text-white font-mono focus:outline-none focus:border-cyan-500">
+                    </div>
+                    <div>
+                        <label class="block text-xs text-slate-400 uppercase mb-1">RST Rcvd</label>
+                        <input type="text" id="qso-rst-rcvd" value="59" class="w-full bg-slate-950 border border-slate-800 rounded-lg p-2.5 text-sm text-white font-mono focus:outline-none focus:border-cyan-500">
+                    </div>
+                    <div>
+                        <label class="block text-xs text-slate-400 uppercase mb-1">Grid / QTH</label>
+                        <input type="text" id="qso-grid" placeholder="e.g. NL26" class="w-full bg-slate-950 border border-slate-800 rounded-lg p-2.5 text-sm text-white focus:outline-none focus:border-cyan-500">
+                    </div>
+                </div>
+
+                <div>
+                    <label class="block text-xs text-slate-400 uppercase mb-1">Comments / Notes</label>
+                    <textarea id="qso-comments" rows="3" placeholder="Signal reports, station setup, or location details..." class="w-full bg-slate-950 border border-slate-800 rounded-lg p-2.5 text-sm text-white focus:outline-none focus:border-cyan-500"></textarea>
+                </div>
+
+                <div class="flex justify-end gap-3 pt-4 border-t border-slate-800">
+                    <button type="button" onclick="closeQSOModal()" class="px-4 py-2 rounded-lg text-sm bg-slate-800 text-slate-300 hover:bg-slate-700">Cancel</button>
+                    <button type="submit" class="px-4 py-2 rounded-lg text-sm bg-cyan-600 hover:bg-cyan-500 text-slate-950 font-semibold shadow-lg shadow-cyan-950/50">Save Entry</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Notification Message Toast -->
+    <div id="toast" class="fixed bottom-5 right-5 bg-slate-900 border border-cyan-500 text-white px-4 py-3 rounded-xl shadow-2xl flex items-center gap-3 transform translate-y-20 opacity-0 transition-all duration-300 z-50">
+        <i class="fa-solid fa-circle-check text-cyan-400"></i>
+        <span id="toast-message" class="text-sm">Action completed.</span>
+    </div>
+
+    <!-- Footer -->
+    <footer class="border-t border-slate-800 bg-slate-950 py-6 text-center text-xs text-slate-500 space-y-2">
+        <p>73's from Rupesh Dev Nath • Callsign: 9N2 (Under Construction)</p>
+        <p>Arjundhara 8, Jhapa, Koshi Province, Nepal</p>
+    </footer>
+
+    <script>
+        // Initial sample data for demonstration
+        const initialLogs = [
+            { id: "1", datetime: "2026-03-15T14:30", callsign: "VU2AAA", band: "20m", mode: "SSB", rstSent: "59", rstRcvd: "59", grid: "MK83", comments: "Clear voice contact from India" },
+            { id: "2", datetime: "2026-03-18T09:15", callsign: "JA1DX", band: "15m", mode: "FT8", rstSent: "-05", rstRcvd: "-10", grid: "PM95", comments: "Strong digital signal from Japan" },
+            { id: "3", datetime: "2026-03-20T11:45", callsign: "DL7AT", band: "40m", mode: "CW", rstSent: "579", rstRcvd: "569", grid: "JO62", comments: "Good Morse practice" }
+        ];
+
+        let qsoLogs = JSON.parse(localStorage.getItem('ham_qso_logs')) || initialLogs;
+        let isAdmin = false;
+
+        // Update Nepal Clock (UTC + 5:45)
+        function updateClock() {
+            const now = new Date();
+            const nptTime = new Date(now.getTime() + (now.getTimezoneOffset() + 345) * 60000);
+            
+            const hours = String(nptTime.getHours()).padStart(2, '0');
+            const minutes = String(nptTime.getMinutes()).padStart(2, '0');
+            const seconds = String(nptTime.getSeconds()).padStart(2, '0');
+            
+            document.getElementById('npt-clock').innerText = `${hours}:${minutes}:${seconds} NPT`;
+        }
+        setInterval(updateClock, 1000);
+        updateClock();
+
+        // Admin Toggle Handler
+        function toggleAdminModal() {
+            isAdmin = !isAdmin;
+            const adminBtnText = document.getElementById('admin-btn-text');
+            const addQsoBtn = document.getElementById('add-qso-btn');
+            const thActions = document.getElementById('th-actions');
+
+            if (isAdmin) {
+                adminBtnText.innerText = 'Exit Admin';
+                addQsoBtn.classList.remove('hidden');
+                thActions.classList.remove('hidden');
+                showToast("Admin Mode Activated: You can now add, edit, or delete QSO logs.");
+            } else {
+                adminBtnText.innerText = 'Manage Logs';
+                addQsoBtn.classList.add('hidden');
+                thActions.classList.add('hidden');
+                showToast("View-only Mode Activated.");
+            }
+            renderQSOs();
+        }
+
+        // Render QSO Logs to Table
+        function renderQSOs() {
+            const tbody = document.getElementById('qso-table-body');
+            const searchVal = document.getElementById('search-callsign').value.toLowerCase();
+            const bandVal = document.getElementById('filter-band').value.toLowerCase();
+            const modeVal = document.getElementById('filter-mode').value;
+            const noLogsMsg = document.getElementById('no-logs-msg');
+
+            tbody.innerHTML = '';
+
+            const filtered = qsoLogs.filter(log => {
+                const matchesCall = log.callsign.toLowerCase().includes(searchVal);
+                const matchesBand = !bandVal || log.band.toLowerCase().includes(bandVal);
+                const matchesMode = !modeVal || log.mode === modeVal;
+                return matchesCall && matchesBand && matchesMode;
+            });
+
+            // Update Statistics
+            document.getElementById('stat-total-qso').innerText = qsoLogs.length;
+            const uniquePrefixes = new Set(qsoLogs.map(l => l.callsign.substring(0, 2)));
+            document.getElementById('stat-countries').innerText = uniquePrefixes.size;
+
+            if (filtered.length === 0) {
+                noLogsMsg.classList.remove('hidden');
+                return;
+            } else {
+                noLogsMsg.classList.add('hidden');
+            }
+
+            filtered.sort((a, b) => new Date(b.datetime) - new Date(a.datetime)).forEach(log => {
+                const tr = document.createElement('tr');
+                tr.className = "hover:bg-slate-900/80 transition-colors border-b border-slate-800/50";
+                
+                const formattedDate = log.datetime.replace('T', ' ') + ' NPT';
+
+                tr.innerHTML = `
+                    <td class="p-3.5 text-slate-400">${formattedDate}</td>
+                    <td class="p-3.5 font-bold text-cyan-400 tracking-wide">${log.callsign}</td>
+                    <td class="p-3.5"><span class="bg-slate-800 text-slate-300 px-2 py-0.5 rounded text-xs border border-slate-700">${log.band}</span></td>
+                    <td class="p-3.5"><span class="bg-amber-500/10 text-amber-400 border border-amber-500/30 px-2 py-0.5 rounded text-xs font-semibold">${log.mode}</span></td>
+                    <td class="p-3.5 text-slate-300">${log.rstSent} / ${log.rstRcvd}</td>
+                    <td class="p-3.5 text-slate-400">${log.grid || '-'}</td>
+                    <td class="p-3.5 text-slate-400 text-xs italic max-w-xs truncate" title="${log.comments || ''}">${log.comments || '-'}</td>
+                    ${isAdmin ? `
+                        <td class="p-3.5 text-right space-x-2">
+                            <button onclick="editQSO('${log.id}')" class="text-cyan-400 hover:text-cyan-300 p-1"><i class="fa-solid fa-pen"></i></button>
+                            <button onclick="deleteQSO('${log.id}')" class="text-rose-400 hover:text-rose-300 p-1"><i class="fa-solid fa-trash"></i></button>
+                        </td>
+                    ` : ''}
+                `;
+                tbody.appendChild(tr);
+            });
+        }
+
+        // Open Modal to Add
+        function openAddQSOModal() {
+            document.getElementById('modal-title').innerText = "Log New QSO Entry";
+            document.getElementById('qso-form').reset();
+            document.getElementById('qso-id').value = '';
+            
+            // Set current time as default
+            const now = new Date();
+            now.setMinutes(now.getMinutes() - now.getTimezoneOffset());
+            document.getElementById('qso-datetime').value = now.toISOString().slice(0,16);
+
+            document.getElementById('qso-modal').classList.remove('hidden');
+        }
+
+        // Close Modal
+        function closeQSOModal() {
+            document.getElementById('qso-modal').classList.add('hidden');
+        }
+
+        // Save QSO (Add or Update)
+        function saveQSO(event) {
+            event.preventDefault();
+            const id = document.getElementById('qso-id').value;
+            const datetime = document.getElementById('qso-datetime').value;
+            const callsign = document.getElementById('qso-callsign').value.toUpperCase();
+            const band = document.getElementById('qso-band').value;
+            const mode = document.getElementById('qso-mode').value;
+            const rstSent = document.getElementById('qso-rst-sent').value;
+            const rstRcvd = document.getElementById('qso-rst-rcvd').value;
+            const grid = document.getElementById('qso-grid').value;
+            const comments = document.getElementById('qso-comments').value;
+
+            if (id) {
+                // Update Existing Entry
+                const index = qsoLogs.findIndex(item => item.id === id);
+                if (index !== -1) {
+                    qsoLogs[index] = { id, datetime, callsign, band, mode, rstSent, rstRcvd, grid, comments };
+                    showToast("QSO log updated successfully!");
+                }
+            } else {
+                // Add New Entry
+                const newId = Date.now().toString();
+                qsoLogs.push({ id: newId, datetime, callsign, band, mode, rstSent, rstRcvd, grid, comments });
+                showToast("New QSO entry logged!");
+            }
+
+            localStorage.setItem('ham_qso_logs', JSON.stringify(qsoLogs));
+            closeQSOModal();
+            renderQSOs();
+        }
+
+        // Edit QSO Entry
+        function editQSO(id) {
+            const entry = qsoLogs.find(item => item.id === id);
+            if (!entry) return;
+
+            document.getElementById('modal-title').innerText = "Edit QSO Entry";
+            document.getElementById('qso-id').value = entry.id;
+            document.getElementById('qso-datetime').value = entry.datetime;
+            document.getElementById('qso-callsign').value = entry.callsign;
+            document.getElementById('qso-band').value = entry.band;
+            document.getElementById('qso-mode').value = entry.mode;
+            document.getElementById('qso-rst-sent').value = entry.rstSent;
+            document.getElementById('qso-rst-rcvd').value = entry.rstRcvd;
+            document.getElementById('qso-grid').value = entry.grid;
+            document.getElementById('qso-comments').value = entry.comments;
+
+            document.getElementById('qso-modal').classList.remove('hidden');
+        }
+
+        // Delete QSO Entry
+        function deleteQSO(id) {
+            qsoLogs = qsoLogs.filter(item => item.id !== id);
+            localStorage.setItem('ham_qso_logs', JSON.stringify(qsoLogs));
+            renderQSOs();
+            showToast("QSO entry deleted.");
+        }
+
+        // Show Notification Toast
+        function showToast(message) {
+            const toast = document.getElementById('toast');
+            document.getElementById('toast-message').innerText = message;
+            toast.classList.remove('translate-y-20', 'opacity-0');
+            setTimeout(() => {
+                toast.classList.add('translate-y-20', 'opacity-0');
+            }, 3000);
+        }
+
+        // Initial Load
+        renderQSOs();
+    </script>
+</body>
+</html>
